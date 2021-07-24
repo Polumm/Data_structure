@@ -7,7 +7,7 @@ typedef struct LNode
 }LNode, * LinkList;
 bool InitList(LinkList& L)
 {
-	L = (LNode*)malloc(sizeof(int));
+	L = (LNode*)malloc(sizeof(LNode));
 	if (L == NULL)
 	{
 		cout << "ÉêÇëÊ§°Ü£¡" << endl;
