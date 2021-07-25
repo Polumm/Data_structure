@@ -8,8 +8,8 @@ typedef struct
 	int data[MaxSize];//静态数组
 	int length;//当前长度
 }SeqList;
-//初始化函数(数组名),静态数组初始化直接用循环，容量开好了
-void InitList(SeqList& L) 
+
+void InitList(SeqList& L) //初始化函数
 {
 	for (int i = 0; i < InitSize; i++)
 	{
@@ -17,10 +17,14 @@ void InitList(SeqList& L)
 	}
 	L.length = InitSize;
 }
-bool ListInsert(SeqList& L, int n, int e)//位序、元素
+
+bool ListInsert(SeqList& L, int n, int e)//插入函数
 {
 	if (n<1 || n > L.length + 1)//输入合法性判断
+	{
+		cout << "输入不合法！" << endl;
 		return false;
+	}
 	if (L.length >= MaxSize)
 	{
 		cout << "容量已满！" << endl;
@@ -35,7 +39,8 @@ bool ListInsert(SeqList& L, int n, int e)//位序、元素
 	L.length ++;
 	return true;
 }
-bool ListDelete(SeqList& L, int n)//位序、元素
+
+bool ListDelete(SeqList& L, int n)//删除函数
 {
 	if (n<1 || n > L.length+1)//输入合法性判断
 		return false;
@@ -44,26 +49,25 @@ bool ListDelete(SeqList& L, int n)//位序、元素
 		cout << "顺序表已空！" << endl;
 		return false;
 	}
-	for (int i = n-1 ; i < L.length; i++)//length对应位序而非数组下标
+	for (int i = n-1 ; i < L.length-1; i++)//length对应位序而非数组下标
 	{
 		L.data[i] = L.data[i+1];
 	}
-	cout << "删除成功!" << endl;//shift  F9快速监视
+	cout << "删除成功!" << endl;
 	L.length--;
 	return true;
 }
-
 
 int main()
 {
 	SeqList L;
 	InitList(L);
-	ListInsert(L, 3, 99);
+	ListInsert(L, 3, 99);//验证插入
 	for (int i = 0; i < L.length; i++) {
 		cout << L.data[i] << '\t';
 	}
 	cout << endl;
-	ListDelete(L, 3);
+	ListDelete(L, 3);//验证删除
 	for (int i = 0; i < L.length; i++) {
 		cout << L.data[i] << '\t';
 	}
