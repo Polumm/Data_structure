@@ -17,7 +17,7 @@ void InitList(SeqList& L)
 	}
 	L.length = InitSize;
 }
-bool InsertList(SeqList& L, int n, int e)//位序、元素
+bool ListInsert(SeqList& L, int n, int e)//位序、元素
 {
 	if (n<1 || n > L.length + 1)//输入合法性判断
 		return false;
@@ -35,12 +35,35 @@ bool InsertList(SeqList& L, int n, int e)//位序、元素
 	L.length ++;
 	return true;
 }
+bool ListDelete(SeqList& L, int n)//位序、元素
+{
+	if (n<1 || n > L.length+1)//输入合法性判断
+		return false;
+	if (L.length == 0)
+	{
+		cout << "顺序表已空！" << endl;
+		return false;
+	}
+	for (int i = n-1 ; i < L.length; i++)//length对应位序而非数组下标
+	{
+		L.data[i] = L.data[i+1];
+	}
+	cout << "删除成功!" << endl;//shift  F9快速监视
+	L.length--;
+	return true;
+}
+
 
 int main()
 {
 	SeqList L;
 	InitList(L);
-	InsertList(L, 3, 99);
+	ListInsert(L, 3, 99);
+	for (int i = 0; i < L.length; i++) {
+		cout << L.data[i] << '\t';
+	}
+	cout << endl;
+	ListDelete(L, 3);
 	for (int i = 0; i < L.length; i++) {
 		cout << L.data[i] << '\t';
 	}
