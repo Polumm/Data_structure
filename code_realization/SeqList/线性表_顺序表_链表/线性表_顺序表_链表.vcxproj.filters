@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="顺序表_动态分配.cpp">
+    <ClCompile Include="顺序表_静态分配.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -58,17 +58,37 @@ bool ListDelete(SeqList& L, int n)//删除函数
 	return true;
 }
 
+int GetElem(SeqList& L, int n, int method = 0)//默认按位查找，默认值method为0，按位查找，else 按值查找
+{
+	if (method == 0 && (n<1 || n>L.length))//输入合法性判断
+		return 0;
+	if (method == 0)
+		return L.data[n - 1];//按位查找返回元素值
+	else
+	{
+		for (int i = 0; i < L.length; i++)
+		{
+			if (L.data[i] == n)
+				return i + 1;//按值查找返回位序
+		}
+		return 0;
+	}
+}
+
 int main()
 {
 	SeqList L;
 	InitList(L);
 	ListInsert(L, 3, 99);//验证插入
-	for (int i = 0; i < L.length; i++) {
+	for (int i = 0; i < L.length; i++)
+	{
 		cout << L.data[i] << '\t';
 	}
-	cout << endl;
+	cout << endl << GetElem(L, 99, 1) << endl;//按值查找99所在的位序
 	ListDelete(L, 3);//验证删除
-	for (int i = 0; i < L.length; i++) {
+	for (int i = 0; i < L.length; i++)
+	{
 		cout << L.data[i] << '\t';
 	}
+	cout << endl << GetElem(L, 99, 1) << endl;//按值查找99所在的位序
 }
