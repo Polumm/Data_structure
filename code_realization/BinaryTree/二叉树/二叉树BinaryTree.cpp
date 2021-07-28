@@ -5,7 +5,8 @@ using namespace std;
 typedef struct BiTNode
 {
 	int data;//数据域
-	struct BiTNode* lchild,*rchild;//指针域，此时还未typedef,同时初始化但每个都必须带星号
+	struct BiTNode* lchild,*rchild;//指针域，此时还未typedef,同时初始化每个都必须带星号!
+	int ltag, rtag;//线索标识：0表示连接的是左右孩子，1表示连接的是前驱后继结点
 }BiTNode,* BiTree;
 //二叉树的初始化函数
 bool InitBiTree(BiTree & T, int data = 0)
@@ -27,9 +28,11 @@ bool BiTreeIncrease(BiTNode* & N, int data = 0)
 	N->lchild = NULL; N->rchild = NULL;
 	return true;
 }
-//访问函数
+//访问函数+设置线索标识
 void vist(BiTNode* T)
 {
+	if (T->lchild != NULL)	T->ltag = 0;
+	if (T->rchild != NULL)	T->rtag = 0;
 	cout << T->data << endl;
 }
 //中序遍历
@@ -40,6 +43,16 @@ void InOrder(BiTNode* T)
 		InOrder(T->lchild);
 		vist(T);
 		InOrder(T->rchild);
+	}
+}
+//中序线索化
+void InTread(BiTree & T)
+{
+	if (T != NULL)
+	{
+		InTread(T->lchild);
+		vist(T);
+		InTread(T->rchild);
 	}
 }
 int main()
