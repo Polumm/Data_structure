@@ -28,31 +28,63 @@ bool BiTreeIncrease(BiTNode* & N, int data = 0)
 	N->lchild = NULL; N->rchild = NULL;
 	return true;
 }
-//访问函数+设置线索标识
+//访问函数
 void vist(BiTNode* T)
 {
-	if (T->lchild != NULL)	T->ltag = 0;
-	if (T->rchild != NULL)	T->rtag = 0;
 	cout << T->data << endl;
 }
 //中序遍历
 void InOrder(BiTNode* T)
 {
-	if (T != NULL) 
+	if (T != NULL)
 	{
 		InOrder(T->lchild);
 		vist(T);
 		InOrder(T->rchild);
 	}
 }
-//中序线索化
-void InTread(BiTree & T)
+//访问时结点时线索化标识
+void vistTread(BiTNode* T, BiTree& pre)
+{
+	if (T != NULL)//实现二叉树一定要小心，经常会遇到空树的情况
+	{
+		if (T->lchild == NULL)
+		{
+			T->lchild = pre;
+			T->ltag = 1;
+		}
+		else
+			T->ltag = 0;
+		if (pre != NULL && pre->rchild == NULL)
+		{
+			pre->rchild = T;
+			pre->rtag = 1;
+		}
+		else if(pre != NULL)
+			pre->rtag = 0;
+		pre = T;//注意pre这里的位置
+	}
+}
+//线索化的遍历
+void InTread(BiTree & T, BiTree& pre)
 {
 	if (T != NULL)
 	{
-		InTread(T->lchild);
-		vist(T);
-		InTread(T->rchild);
+		InTread(T->lchild,pre);
+		vistTread(T,pre);
+		InTread(T->rchild,pre);
+	}
+}
+//创建线索
+void makeTread(BiTree& T)
+{
+	BiTNode* pre = NULL;//定义线索化时用到的指针
+	if (T != NULL)
+		InTread(T, pre);
+	if (pre != NULL)
+	{
+		pre->rchild = NULL;
+		pre->rtag = 1;
 	}
 }
 int main()
@@ -65,4 +97,5 @@ int main()
 	BiTreeIncrease(root->rchild->rchild, 17);
 	BiTreeIncrease(root->rchild->lchild->lchild, 13);
 	InOrder(root);
+	makeTread(root);
 }
