@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BSTree.cpp" />
     <ClCompile Include="二叉树BinaryTree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BSTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
